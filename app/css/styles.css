@@ -17,6 +17,7 @@ body {
     rgba(46, 46, 242, 0.881),
     rgb(60, 60, 159)
   );
+  min-height: 100vh;
   height: 100%;
 }
 
@@ -84,14 +85,14 @@ body {
   margin-bottom: 5px;
 }
 
-@media screen and (max-width: 280px) {
+@media screen and (max-width: 380px) {
   :root {
-    --app-width: 260px;
-    font-size: 16px;
+    --app-width: 100%;
+    font-size: 6vw;
   }
 
   .today-range {
-    font-size: 21px;
+    font-size: 6.5vw;
   }
 
   .today-icon {
