@@ -1,3 +1,64 @@
-.city-name {
+:root {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(52, 52, 245, 0.756);
+  color: white;
+  font-size: 18px;
+  --app-width: 350px;
+}
+
+.today {
+  width: var(--app-width);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid white;
+}
+
+.city {
   font-size: 30px;
+  text-align: center;
+}
+
+.today-date-time {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.today-temp-icon {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 50px;
+}
+
+.today-icon {
+  height: 60px;
+  width: auto;
+}
+
+.today-weather {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.today-range {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.forecast {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: var(--app-width);
+}
+
+.hourly-forecast {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid white;
+  padding-left: 5px;
+  margin-bottom: 5px;
 }

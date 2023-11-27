@@ -55,6 +55,7 @@ export class Forecast extends APIData {
       forecast.push({
         dateTime: forecastBlock["dt_txt"],
         temp: this.returnTemp(forecastBlock),
+        humidity: forecastBlock["main"]["humidity"],
         weather: this.returnWeather(forecastBlock["weather"][0]),
       });
     });
