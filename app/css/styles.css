@@ -4,7 +4,7 @@
   margin: 0;
   color: white;
   font-size: 20px;
-  --app-width: 380px;
+  --app-width: 500px;
 }
 
 body {
@@ -47,6 +47,11 @@ body {
   justify-content: space-evenly;
 }
 
+.today-temp {
+  display: flex;
+  align-items: center;
+}
+
 .today-temp-icon {
   display: flex;
   justify-content: space-evenly;
@@ -69,6 +74,11 @@ body {
   margin-top: 10px;
 }
 
+.today-range-label-pair {
+  display: flex;
+  flex-direction: column;
+}
+
 .forecast {
   display: flex;
   flex-direction: column;
@@ -76,13 +86,31 @@ body {
   width: var(--app-width);
 }
 
-.hourly-forecast {
+.forecast-icon {
+  display: block;
+  margin: 0 auto;
+}
+
+/* .hourly-forecast {
   display: flex;
   justify-content: space-around;
   align-items: center;
   border: 2px solid white;
   padding-left: 5px;
   margin-bottom: 5px;
+} */
+
+.hourly-forecast {
+  display: grid;
+  width: var(--app-width);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  align-items: center;
+  text-align: center;
+  border: 2px solid white;
+  margin-top: 10px;
 }
 
 .incorrect-input {
@@ -118,7 +146,7 @@ body {
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 500px) {
   :root {
     --app-width: 100%;
     font-size: 6vw;

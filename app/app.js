@@ -57,13 +57,25 @@ const displayToday = (forecastInfo) => {
   displayWeatherType(forecastInfo);
   displayWeatherDesc(forecastInfo);
 
+  displayTempRange(forecastInfo);
+
+  const todayDiv = document.querySelector("#today");
+  todayDiv.classList.add("today");
+};
+
+const displayTempRange = (forecastInfo) => {
+  const highLabel = document.querySelector(".today-high-label");
+  const lowLabel = document.querySelector(".today-low-label");
+  const humidityLabel = document.querySelector(".today-humidity-label");
+
+  highLabel.textContent = "High";
+  lowLabel.textContent = "Low";
+  humidityLabel.textContent = "Humidity";
+
   const [high, low] = findTempRange(forecastInfo);
   displayHigh(high);
   displayLow(low);
   displayHumidity(forecastInfo);
-
-  const todayDiv = document.querySelector("#today");
-  todayDiv.classList.add("today");
 };
 
 const addDivAnimation = (delay) => {
@@ -203,15 +215,15 @@ const findTempRange = (forecastInfo) => {
     if (temp < low) low = temp;
   });
 
-  return [`High: ${processTemp(high)}`, `Low: ${processTemp(low)}`];
+  return [processTemp(high), processTemp(low)];
 };
 
-const displayHigh = (high, div = ".today-high", idx = 0) => {
+const displayHigh = (high, div = ".today-high") => {
   const highDiv = document.querySelector(div);
 
   highDiv.textContent = high;
 };
-const displayLow = (low, div = ".today-low", idx = 0) => {
+const displayLow = (low, div = ".today-low") => {
   const lowDiv = document.querySelector(div);
 
   lowDiv.textContent = low;
@@ -221,5 +233,5 @@ const displayHumidity = (forecastInfo, div = ".today-humidity", idx = 0) => {
 
   const humidity = forecastInfo[idx].humidity;
 
-  humidityDiv.textContent = `Humidity: ${humidity} %`;
+  humidityDiv.textContent = `${humidity} %`;
 };
