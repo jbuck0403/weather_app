@@ -1,5 +1,5 @@
 import { API_KEY, ZIP_API_KEY } from "./apikey.js";
-import { Forecast, ZipToState, ExtendedString } from "./forecast.js";
+import { Forecast, ZipToState, ExtendedString } from "./modules.js";
 
 const zipToState = new ZipToState(ZIP_API_KEY);
 const forecast = new Forecast(API_KEY);
