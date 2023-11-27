@@ -1,8 +1,10 @@
 import { API_KEY, ZIP_API_KEY } from "./apikey.js";
-import { Forecast, ZipToState } from "./forecast.js";
+import { Forecast, ZipToState, ExtendedString } from "./forecast.js";
 
 const zipToState = new ZipToState(ZIP_API_KEY);
 const forecast = new Forecast(API_KEY);
+const extendedString = new ExtendedString();
+const title = extendedString.title;
 
 const displayLocation = (data, zipCode) => {
   const cityNameDiv = document.querySelector(".city");
@@ -205,7 +207,7 @@ const displayWeatherDesc = (
 
   const weatherDesc = forecastInfo[idx].weather.description;
 
-  weatherDescDiv.textContent = weatherDesc;
+  weatherDescDiv.textContent = title(weatherDesc);
 };
 
 const findTempRange = (forecastInfo) => {

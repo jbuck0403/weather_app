@@ -1,3 +1,12 @@
+export class ExtendedString {
+  title = (name) => {
+    return name
+      .split(" ")
+      .map((e) => e.charAt(0).toUpperCase() + e.slice(1))
+      .join(" ");
+  };
+}
+
 class APIData {
   constructor(API_KEY) {
     this.API_KEY = API_KEY;
