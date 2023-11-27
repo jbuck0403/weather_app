@@ -11,27 +11,30 @@ class APIData {
   };
 }
 
-export class GeoCode extends APIData {
+export class ZipToState extends APIData {
   constructor(API_KEY) {
     super(API_KEY);
   }
 
-  returnGeoCodeData = (zipCode) => {
-    const url = `http://api.openweathermap.org/geo/1.0/zip?zip=${zipCode}&appid=${this.API_KEY}`;
+  returnZipData = (zipCode) => {
+    const url = `https://api.zipcodestack.com/v1/search?codes=${zipCode}&country=us&apikey=${this.API_KEY}`;
 
     return this.returnData(url);
   };
 
-  returnCityName = (data) => {
-    return data["name"];
+  returnStateName = (data, zipCode) => {
+    return data["results"][zipCode][0]["state_code"];
   };
 
-  returnLatLong = (data) => {
-    return { lat: data["lat"], long: data["lon"] };
+  returnLatLong = (data, zipCode) => {
+    return {
+      lat: data["results"][zipCode][0]["latitude"],
+      long: data["results"][zipCode][0]["longitude"],
+    };
   };
 
-  returnCountry = (data) => {
-    return data["country"];
+  returnCityName = (data, zipCode) => {
+    return data["results"][zipCode][0]["city_en"];
   };
 }
 

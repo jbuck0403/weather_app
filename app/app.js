@@ -1,14 +1,18 @@
-import API_KEY from "./apikey.js";
-import { Forecast, GeoCode } from "./forecast.js";
+import { API_KEY, ZIP_API_KEY } from "./apikey.js";
+import { Forecast, ZipToState } from "./forecast.js";
 
-const geoCode = new GeoCode(API_KEY);
+const zipToState = new ZipToState(ZIP_API_KEY);
 const forecast = new Forecast(API_KEY);
 
-const displayLocation = (data) => {
+const displayLocation = (data, zipCode) => {
   const cityNameDiv = document.querySelector(".city");
-  const cityName = geoCode.returnCityName(data);
+  const stateNameDiv = document.querySelector(".state");
+
+  const cityName = zipToState.returnCityName(data, zipCode);
+  const stateName = zipToState.returnStateName(data, zipCode);
 
   cityNameDiv.textContent = cityName;
+  stateNameDiv.textContent = stateName;
 };
 
 const locationForm = document.querySelector(".location-form");
@@ -20,19 +24,19 @@ locationForm.addEventListener("submit", async (e) => {
   zipInput.value = "";
 
   if (zipCode.length == 5) {
-    const data = await geoCode.returnGeoCodeData(zipCode);
+    const data = await zipToState.returnZipData(zipCode);
+    console.log(data);
 
     if (data.cod == "404") {
       errorMessage();
       return;
     }
-    const latLong = geoCode.returnLatLong(data);
-    displayLocation(data);
+
+    const latLong = zipToState.returnLatLong(data, zipCode);
+    displayLocation(data, zipCode);
 
     const forecastData = await forecast.returnForecastData(latLong);
-    console.log(forecastData);
     const forecastInfo = await forecast.returnForecast(forecastData);
-    console.log(forecastInfo);
 
     displayToday(forecastInfo);
     displayForecast(forecastInfo);

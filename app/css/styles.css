@@ -47,6 +47,18 @@ body {
   margin-top: 20px;
 }
 
+.location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.state {
+  font-size: 1.5em;
+  text-align: center;
+}
+
 .today {
   width: var(--app-width);
   display: flex;
@@ -169,6 +181,10 @@ body {
   :root {
     --app-width: 99%;
     font-size: 5vw;
+  }
+
+  .today {
+    font-size: 6vw;
   }
 
   .today-range {
