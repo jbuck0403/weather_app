@@ -55,7 +55,9 @@ const displayForecast = (
   imgClass = "forecast-icon",
   dateTimeClass = "forecast-date-time",
   tempClass = "forecast-temp",
-  weatherTypeClass = "forecast-weather-type"
+  weatherTypeClass = "forecast-weather-type",
+  dayClass = "forecast-day",
+  timeClass = "forecast-time"
 ) => {
   const forecastDiv = document.querySelector(forecastClass);
 
@@ -64,7 +66,8 @@ const displayForecast = (
   forecastData.forEach((forecast) => {
     let [date, time] = processDateTime(forecast.dateTime);
     forecastHTML += `<div class="${divClass}">`;
-    forecastHTML += `<div class="${dateTimeClass}">${date} ${time}</div>`;
+    forecastHTML += `<div class="${dayClass}">${date}</div>`;
+    forecastHTML += `<div class="${timeClass}">${time}</div>`;
     forecastHTML += `<div class="${tempClass}">${processTemp(
       forecast.temp
     )}</div>`;
@@ -76,6 +79,18 @@ const displayForecast = (
   forecastDiv.innerHTML = forecastHTML;
 };
 
+const processTime = (time) => {
+  time = Number(time.slice(0, -3));
+
+  if (time >= 12) {
+    if (time == 12) return `${time} PM`;
+    return `${time % 12} PM`;
+  } else {
+    if (time == 0) return "12 AM";
+    return `${time} AM`;
+  }
+};
+
 const processTemp = (temp) => {
   return `${temp}° F`;
 };
@@ -84,7 +99,7 @@ const processDateTime = (dateTime) => {
   dateTime = dateTime.slice(0, -3).split(" ");
 
   const dateObj = new Date(dateTime[0]);
-
+  const time = processTime(dateTime[1]);
   const day = dateObj.getDay();
   const daysOfWeek = [
     "Sunday",
@@ -96,7 +111,7 @@ const processDateTime = (dateTime) => {
     "Saturday",
   ];
 
-  return [daysOfWeek[day], dateTime[1]];
+  return [daysOfWeek[day], time];
 };
 
 const displayDateTime = (

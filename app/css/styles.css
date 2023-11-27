@@ -78,7 +78,7 @@ body {
 
 .hourly-forecast {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   border: 2px solid white;
   padding-left: 5px;
