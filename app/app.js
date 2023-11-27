@@ -19,18 +19,36 @@ locationForm.addEventListener("submit", async (e) => {
   const zipCode = zipInput.value;
   zipInput.value = "";
 
-  const data = await geoCode.returnGeoCodeData(zipCode);
-  const latLong = geoCode.returnLatLong(data);
-  displayLocation(data);
+  if (zipCode.length == 5) {
+    const data = await geoCode.returnGeoCodeData(zipCode);
 
-  const forecastData = await forecast.returnForecastData(latLong);
-  console.log(forecastData);
-  const forecastInfo = await forecast.returnForecast(forecastData);
-  console.log(forecastInfo);
+    if (data.cod == "404") {
+      errorMessage();
+      return;
+    }
+    const latLong = geoCode.returnLatLong(data);
+    displayLocation(data);
 
-  displayToday(forecastInfo);
-  displayForecast(forecastInfo);
+    const forecastData = await forecast.returnForecastData(latLong);
+    console.log(forecastData);
+    const forecastInfo = await forecast.returnForecast(forecastData);
+    console.log(forecastInfo);
+
+    displayToday(forecastInfo);
+    displayForecast(forecastInfo);
+  } else {
+    errorMessage();
+  }
 });
+
+const errorMessage = () => {
+  const inputField = document.querySelector(".zip-code-input");
+  inputField.classList.add("incorrect-input");
+
+  setTimeout(() => {
+    inputField.classList.remove("incorrect-input");
+  }, 100);
+};
 
 const displayToday = (forecastInfo) => {
   displayDateTime(forecastInfo);
@@ -48,12 +66,15 @@ const displayToday = (forecastInfo) => {
   todayDiv.classList.add("today");
 };
 
+const addDivAnimation = (delay) => {
+  return `animation: fadeIn ${delay}s ease-in-out`;
+};
+
 const displayForecast = (
   forecastData,
   forecastClass = ".forecast",
   divClass = "hourly-forecast",
   imgClass = "forecast-icon",
-  dateTimeClass = "forecast-date-time",
   tempClass = "forecast-temp",
   weatherTypeClass = "forecast-weather-type",
   dayClass = "forecast-day",
@@ -63,9 +84,11 @@ const displayForecast = (
 
   let forecastHTML = "";
 
-  forecastData.forEach((forecast) => {
+  forecastData.forEach((forecast, idx) => {
     let [date, time] = processDateTime(forecast.dateTime);
-    forecastHTML += `<div class="${divClass}">`;
+    forecastHTML += `<div class="${divClass}" style="${addDivAnimation(
+      idx / 10
+    )}">`;
     forecastHTML += `<div class="${dayClass}">${date}</div>`;
     forecastHTML += `<div class="${timeClass}">${time}</div>`;
     forecastHTML += `<div class="${tempClass}">${processTemp(
